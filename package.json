@@ -1,0 +1,22 @@
+{
+  "name": "sis_contas_receber",
+  "version": "1.0.0",
+  "description": "Sistema de contas a receber",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "author": "Jorge Igor A. R. Silva",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "mongodb": "^3.5.4",
+    "mongoose": "^5.7.5"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.3"
+  }
+}
