@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
 
-module.exports = function (express) {
     const Schema = mongoose.Schema;
-    const contaSchema = Schema({
+    const ContaSchema = Schema({
         nome: { type: String, required: true },
         data: { type: Date, require: true},
         total_receber: { type: Number, require: true},
@@ -10,6 +9,6 @@ module.exports = function (express) {
         
     });
 
-    
-    return global.db.model('conta', contaSchema);
-}; 
+
+module.exports = ContaSchema;
+ 
