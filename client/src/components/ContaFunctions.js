@@ -11,13 +11,13 @@ export const register = newConta => {
     })
 }
 
-export const edit = id => {
+export const edit = id => {  
   return axios
       .get('conta/edit', {
         _id: id
       })
       .then(response => {
-        return response.data;
+        return response;
       })
       .catch(err => {
         console.log(err);
@@ -33,6 +33,16 @@ export const update = tempConta => {
     })
     .then(response => {
       console.log('Atualizado');
+    })
+}
+
+export const deleteConta = _id => {
+  return axios
+      .post('conta/delete', {
+        idConta: _id
+    })
+    .then(response => {
+      console.log('Conta Deletada');
     })
 }
 

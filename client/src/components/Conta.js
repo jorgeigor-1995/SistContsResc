@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 
 import { update, edit } from './ContaFunctions';
-import Lista from './ListaContas'
+
 
 export default class Conta extends Component {
     constructor(props) {
@@ -47,8 +47,8 @@ export default class Conta extends Component {
             .catch(err => console.log(err));
     }
 
-    callApi = async (id) => {
-        const response = await edit(id);
+    callApi = async (props) => {
+        const response = await edit(props.idConta);
         const body = await response.json();
         if (response.status !== 200) throw Error(body.message);
         console.log(body);
@@ -65,7 +65,7 @@ export default class Conta extends Component {
                     <div className="row">
                         <div className="col-md-6 mt-5 mx-auto">
                             <form noValidate onSubmit={this.onSubmit}>
-                                <h1 className="h3 mb-3 font-weight-normal">Register</h1>
+                                <h1 className="h3 mb-3 font-weight-normal">Editar Conta</h1>
                                 <div className="form-group">
                                     <label htmlFor="name">Nome</label>
                                     <input

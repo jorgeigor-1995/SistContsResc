@@ -1,35 +1,36 @@
 import React, { Component, Fragment } from "react";
 
 import Conta from './Conta';
-import { ConnectionStates } from "mongoose";
+import { edit, deleteConta } from './ContaFunctions';
 
 export default class Lista extends Component {
-    
-    
-    
+
+
+
     constructor() {
         super();
         this.state = {
-            lista: [{ 
+            lista: [{
                 '_id': '',
-                'nome': '', 
+                'nome': '',
                 'data': '',
-                'status': ''          
-            }],        
+                'status': ''
+            }],
+            showComp: false
         };
-
-   
 
     }
 
-    
+
+
+
     componentDidMount() {
         this.callApi()
-          .then(res => this.setState({ lista: res.conta }))
-          .catch(err => console.log(err));
-      }
-    
-      callApi = async () => {
+            .then(res => this.setState({ lista: res.conta }))
+            .catch(err => console.log(err));
+    }
+
+    callApi = async () => {
         const response = await fetch('/conta/list');
         const body = await response.json();
         if (response.status !== 200) throw Error(body.message);
@@ -37,62 +38,78 @@ export default class Lista extends Component {
         return body;
     };
 
-    ifDoStatus(status){
-        if(status){
+    ifDoStatus(status) {
+        if (status) {
             return 'ativa';
-        }else return 'paga';
+        } else return 'paga';
     }
 
     ///////
-    editarConta(idConta){
-        return "idConta";
+    hiddenComp(){
+        this.setState({
+            showComp: true
+        })
     }
 
     
-      
-    
+
     render() {
-        
+
         return (
             <Fragment>
-
-                 <Conta/>
-                 
-                 <div className="container">
+                { this.state.showComp?
+                    <Conta/>
+                    :null
+                }
+                
+                
+                <div className="container">
                     <div className="jumbotron mt-5">
-                    <div className="col-sm-8 mx-auto">
-                        <h1 className="text-center">Lista de Contas</h1>
-                    </div>
-                    <table class="table table-striped">
-                    <thead>
-                        <tr>
-                        <th scope="col">nome</th>
-                        <th scope="col">data</th>
-                        <th scope="col">status</th>
-                        <th scope="col"></th>
+                        <div className="col-sm-8 mx-auto">
+                            <h1 className="text-center">Lista de Contas</h1>
+                        </div>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">nome</th>
+                                    <th scope="col">data</th>
+                                    <th scope="col">status</th>
+                                    <th scope="col"></th>
 
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {this.state.lista.map(conta => {
-                        return (
-                            <tr key= { conta._id }>
-                            <td> { conta.nome }</td>
-                            <td> { conta.data }</td>
-                            <td> { this.ifDoStatus(conta.status) }</td>
-                            <td> <button  type="button" onClick={<Conta idConta={ conta._id } /> }  >Edit!</button></td>
-                            </tr>
-                        )
-                    }
-                    )}
-                    </tbody>
-                    </table>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {this.state.lista.map(conta => {
+                                    return (
+                                        <tr key={conta._id}>
+                                            <td> {conta.nome}</td>
+                                            <td> {conta.data}</td>
+                                            <td> {this.ifDoStatus(conta.status)}</td>
+                                            <td>
+                                                <button
+                                                    onClick={() => {
+                                                        this.hiddenComp();
+                                                        edit(conta._id);
+                                                    }}
+                                                    className="button muted-button">
+                                                    Edit
+                                                    </button>
+                                                <button onClick={() => deleteConta(conta._id)} className="button muted-button">
+                                                    Delete
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    )
+                                }
+                                )}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </Fragment>
         );
     }
-    
+
 
 }
 
