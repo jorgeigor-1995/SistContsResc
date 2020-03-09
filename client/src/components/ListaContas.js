@@ -13,6 +13,7 @@ export default class Lista extends Component {
             lista: [{
                 '_id': '',
                 'nome': '',
+                'total_receber': '',
                 'data': '',
                 'status': ''
             }],
@@ -74,6 +75,7 @@ export default class Lista extends Component {
                                     <th scope="col">nome</th>
                                     <th scope="col">data</th>
                                     <th scope="col">status</th>
+                                    <th scope="col">total a receber</th>
                                     <th scope="col"></th>
 
                                 </tr>
@@ -85,6 +87,7 @@ export default class Lista extends Component {
                                             <td> {conta.nome}</td>
                                             <td> {conta.data}</td>
                                             <td> {this.ifDoStatus(conta.status)}</td>
+                                            <td> {conta.total_receber}</td>
                                             <td>
                                                 <button
                                                     onClick={() => {
